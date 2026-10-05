@@ -18,6 +18,8 @@ cp "$PROJ/app/Info.plist" "$APP/Contents/Info.plist"
   -resource-dir "$RD" \
   -target arm64-apple-macos13.0 \
   "$PROJ/app/main.swift" \
+  "$PROJ/app/TBPrivate.m" \
+  -import-objc-header "$PROJ/app/TBPrivate.h" \
   -o "$APP/Contents/MacOS/TouchBarWX"
 
 codesign --force --sign - "$APP"

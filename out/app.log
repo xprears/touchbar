@@ -55,3 +55,258 @@
 [2026/10/5 11:12:26]   已发送快捷键 keycode=49
 [2026/10/5 11:12:26] ✔「自检」完成，用时 770ms
 [2026/10/5 11:12:30] 按钮可见性 → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 11:17:17] 按钮可见性 → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:17:21] 按钮可见性 → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 11:21:27] 按钮可见性 → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:21:42] 按钮可见性 → 隐藏（前台=com.apple.Safari.WebApp.77B2449A-2A61-4018-818A-360A24B5D135）
+[2026/10/5 11:23:00] 按钮可见性 → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:23:06] 按钮可见性 → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 11:30:30] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:30:30] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:30:30] ✅ 私有 API 加载成功
+[2026/10/5 11:30:30] 注册 tray item id=com.xprears.tbwx.tray perform=ok 按钮数=6 预期宽度=202 fitting=172
+[2026/10/5 11:30:30] 按钮可见性 → 隐藏（前台=com.apple.finder）
+[2026/10/5 11:30:30] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:30:30] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:31:03] 按钮可见性 → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:31:15] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:31:18] 按钮可见性 → 隐藏（前台=com.apple.systempreferences）
+[2026/10/5 11:32:40] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:32:40] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:32:40] ✅ 私有 API 加载成功
+[2026/10/5 11:32:40]   子按钮 #0 聊天  id=com.xprears.tbwx.item0
+[2026/10/5 11:32:40]   子按钮 #1 朋友圈  id=com.xprears.tbwx.item1
+[2026/10/5 11:32:40]   子按钮 #2 小程序  id=com.xprears.tbwx.item2
+[2026/10/5 11:32:40]   子按钮 #3 视频号  id=com.xprears.tbwx.item3
+[2026/10/5 11:32:40]   子按钮 #4 搜一搜  id=com.xprears.tbwx.item4
+[2026/10/5 11:32:40]   子按钮 #5 搜索  id=com.xprears.tbwx.item5
+[2026/10/5 11:36:16] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:36:16] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:36:16] ✅ 私有 API 加载成功
+[2026/10/5 11:36:16]   子按钮 #0 聊天  id=com.xprears.tbwx.item0
+[2026/10/5 11:36:16]   子按钮 #1 朋友圈  id=com.xprears.tbwx.item1
+[2026/10/5 11:36:16]   子按钮 #2 小程序  id=com.xprears.tbwx.item2
+[2026/10/5 11:36:16]   子按钮 #3 视频号  id=com.xprears.tbwx.item3
+[2026/10/5 11:36:16]   子按钮 #4 搜一搜  id=com.xprears.tbwx.item4
+[2026/10/5 11:36:16]   子按钮 #5 搜索  id=com.xprears.tbwx.item5
+[2026/10/5 11:38:06] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:38:06] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:38:06] ✅ 私有 API 加载成功
+[2026/10/5 11:38:06]   子按钮 #0 聊天  id=com.xprears.tbwx.item0
+[2026/10/5 11:38:06]   子按钮 #1 朋友圈  id=com.xprears.tbwx.item1
+[2026/10/5 11:38:06]   子按钮 #2 小程序  id=com.xprears.tbwx.item2
+[2026/10/5 11:38:06]   子按钮 #3 视频号  id=com.xprears.tbwx.item3
+[2026/10/5 11:38:06]   子按钮 #4 搜一搜  id=com.xprears.tbwx.item4
+[2026/10/5 11:38:06]   子按钮 #5 搜索  id=com.xprears.tbwx.item5
+[2026/10/5 11:38:06] 注册 group tray item id=com.xprears.tbwx.tray perform=ok 子项=6
+[2026/10/5 11:38:06] 按钮可见性 → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:38:06] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:38:06] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:44:34] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:44:34] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:44:34]   声明按钮 #0 聊天
+[2026/10/5 11:44:34]   声明按钮 #1 朋友圈
+[2026/10/5 11:44:34]   声明按钮 #2 小程序
+[2026/10/5 11:44:34]   声明按钮 #3 视频号
+[2026/10/5 11:44:34]   声明按钮 #4 搜一搜
+[2026/10/5 11:44:34]   声明按钮 #5 搜索
+[2026/10/5 11:46:30] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:46:30] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:46:30]   声明按钮 #0 聊天
+[2026/10/5 11:46:30]   声明按钮 #1 朋友圈
+[2026/10/5 11:46:30]   声明按钮 #2 小程序
+[2026/10/5 11:46:30]   声明按钮 #3 视频号
+[2026/10/5 11:46:30]   声明按钮 #4 搜一搜
+[2026/10/5 11:46:30]   声明按钮 #5 搜索
+[2026/10/5 11:46:31]   presentSystemModalTouchBar placement=0 已调用
+[2026/10/5 11:46:31] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:46:31] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:46:31] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:47:08] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:47:08] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:47:08]   声明按钮 #0 聊天
+[2026/10/5 11:47:08]   声明按钮 #1 朋友圈
+[2026/10/5 11:47:08]   声明按钮 #2 小程序
+[2026/10/5 11:47:08]   声明按钮 #3 视频号
+[2026/10/5 11:47:08]   声明按钮 #4 搜一搜
+[2026/10/5 11:47:08]   声明按钮 #5 搜索
+[2026/10/5 11:47:09]   呈现模式 app → app sync=true
+[2026/10/5 11:47:09]   presentSystemModalTouchBar placement=1 已调用
+[2026/10/5 11:47:09] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:47:09] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:47:09] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:48:19] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:48:19] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:48:19]   声明按钮 #0 聊天
+[2026/10/5 11:48:19]   声明按钮 #1 朋友圈
+[2026/10/5 11:48:19]   声明按钮 #2 小程序
+[2026/10/5 11:48:19]   声明按钮 #3 视频号
+[2026/10/5 11:48:19]   声明按钮 #4 搜一搜
+[2026/10/5 11:48:19]   声明按钮 #5 搜索
+[2026/10/5 11:48:19]   presentSystemModalTouchBar placement=1 已调用
+[2026/10/5 11:48:19] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:48:19] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:48:19] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:48:49] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:48:49] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:48:49]   声明按钮 #0 聊天
+[2026/10/5 11:48:49]   声明按钮 #1 朋友圈
+[2026/10/5 11:48:49]   声明按钮 #2 小程序
+[2026/10/5 11:48:49]   声明按钮 #3 视频号
+[2026/10/5 11:48:49]   声明按钮 #4 搜一搜
+[2026/10/5 11:48:49]   声明按钮 #5 搜索
+[2026/10/5 11:48:49]   presentSystemModalTouchBar placement=1 已调用
+[2026/10/5 11:48:49] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:48:49] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:48:49] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:49:10]   呈现模式 app → appWithControlStrip sync=true
+[2026/10/5 11:49:10]   dismissSystemModalTouchBar 已调用
+[2026/10/5 11:49:10] Touch Bar → 隐藏（前台=com.apple.systempreferences）
+[2026/10/5 11:49:17] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:49:17] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:49:17]   声明按钮 #0 聊天
+[2026/10/5 11:49:17]   声明按钮 #1 朋友圈
+[2026/10/5 11:49:17]   声明按钮 #2 小程序
+[2026/10/5 11:49:17]   声明按钮 #3 视频号
+[2026/10/5 11:49:17]   声明按钮 #4 搜一搜
+[2026/10/5 11:49:17]   声明按钮 #5 搜索
+[2026/10/5 11:49:17]   present 返回 true
+[2026/10/5 11:49:17]   呈现模式 appWithControlStrip → app sync=true
+[2026/10/5 11:49:17]   presentSystemModalTouchBar placement=1 已调用
+[2026/10/5 11:49:17] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:49:17] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:49:17] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:49:19] Touch Bar → 隐藏（前台=com.apple.accessibility.universalAccessAuthWarn）
+[2026/10/5 11:49:25]   present 返回 true
+[2026/10/5 11:49:25]   presentSystemModalTouchBar placement=1 已调用
+[2026/10/5 11:49:25] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:49:28] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 11:49:44] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:49:44] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:49:44]   声明按钮 #0 聊天
+[2026/10/5 11:49:44]   声明按钮 #1 朋友圈
+[2026/10/5 11:49:44]   声明按钮 #2 小程序
+[2026/10/5 11:49:44]   声明按钮 #3 视频号
+[2026/10/5 11:49:44]   声明按钮 #4 搜一搜
+[2026/10/5 11:49:44]   声明按钮 #5 搜索
+[2026/10/5 11:49:44]   呈现模式 app → app sync=true
+[2026/10/5 11:49:44]   present placement=1 返回 true 模式=app
+[2026/10/5 11:49:44] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:49:44] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:49:44] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:50:05] Touch Bar → 隐藏（前台=com.apple.systempreferences）
+[2026/10/5 11:50:15] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:50:15] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:50:15]   声明按钮 #0 聊天
+[2026/10/5 11:50:15]   声明按钮 #1 朋友圈
+[2026/10/5 11:50:15]   声明按钮 #2 小程序
+[2026/10/5 11:50:15]   声明按钮 #3 视频号
+[2026/10/5 11:50:15]   声明按钮 #4 搜一搜
+[2026/10/5 11:50:15]   声明按钮 #5 搜索
+[2026/10/5 11:50:15] Touch Bar → 隐藏（前台=com.apple.systempreferences）
+[2026/10/5 11:50:15] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:50:15] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:50:31]   呈现模式 app → app sync=true
+[2026/10/5 11:50:31]   present placement=1 返回 true 模式=app
+[2026/10/5 11:50:31]   bar.itemIdentifiers=[]
+[2026/10/5 11:50:31]   bar.defaultItemIdentifiers=[__C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item0), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item1), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item2), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item3), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item4), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item5)]
+[2026/10/5 11:50:31]   bar.customizationAllowed=["com.xprears.tbwx.item0", "com.xprears.tbwx.item1", "com.xprears.tbwx.item2", "com.xprears.tbwx.item3", "com.xprears.tbwx.item4", "com.xprears.tbwx.item5", "NSTouchBarItemIdentifierFlexibleSpace"]
+[2026/10/5 11:50:31]   ⚠️ itemIdentifiers 为空 → 系统没采纳 defaultItemIdentifiers
+[2026/10/5 11:50:31] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:50:54] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:50:54] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:50:54]   声明按钮 #0 聊天
+[2026/10/5 11:50:54]   声明按钮 #1 朋友圈
+[2026/10/5 11:50:54]   声明按钮 #2 小程序
+[2026/10/5 11:50:54]   声明按钮 #3 视频号
+[2026/10/5 11:50:54]   声明按钮 #4 搜一搜
+[2026/10/5 11:50:54]   声明按钮 #5 搜索
+[2026/10/5 11:50:54] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 11:50:54] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:50:54] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:51:14]   呈现模式 app → app sync=true
+[2026/10/5 11:51:14]   present placement=1 返回 true 模式=app
+[2026/10/5 11:51:14]   bar.itemIdentifiers=[]
+[2026/10/5 11:51:14]   bar.defaultItemIdentifiers=[__C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item0), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item1), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item2), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item3), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item4), __C.NSTouchBarItemIdentifier(_rawValue: com.xprears.tbwx.item5)]
+[2026/10/5 11:51:14]   bar.customizationAllowed=["com.xprears.tbwx.item0", "com.xprears.tbwx.item1", "com.xprears.tbwx.item2", "com.xprears.tbwx.item3", "com.xprears.tbwx.item4", "com.xprears.tbwx.item5", "NSTouchBarItemIdentifierFlexibleSpace"]
+[2026/10/5 11:51:14]   ⚠️ itemIdentifiers 为空 → 系统没采纳 defaultItemIdentifiers
+[2026/10/5 11:51:14] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:51:40] === Touch Bar 微信助手启动 ===
+[2026/10/5 11:51:40] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 11:51:40]   声明按钮 #0 聊天
+[2026/10/5 11:51:40]   声明按钮 #1 朋友圈
+[2026/10/5 11:51:40]   声明按钮 #2 小程序
+[2026/10/5 11:51:40]   声明按钮 #3 视频号
+[2026/10/5 11:51:40]   声明按钮 #4 搜一搜
+[2026/10/5 11:51:40]   声明按钮 #5 搜索
+[2026/10/5 11:51:40]   呈现模式 app → app sync=true
+[2026/10/5 11:51:40]   present placement=1 返回 true 模式=app
+[2026/10/5 11:51:40]   present 瞬间 itemIdentifiers=0 个
+[2026/10/5 11:51:40] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:51:40] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 11:51:40] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 11:51:42]   2秒后 itemIdentifiers=0 个，已实例化=false
+[2026/10/5 11:54:34] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 11:54:38]   呈现模式 app → app sync=true
+[2026/10/5 11:54:38]   present placement=1 返回 true 模式=app
+[2026/10/5 11:54:38]   present 瞬间 itemIdentifiers=0 个
+[2026/10/5 11:54:38] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 11:54:40]   2秒后 itemIdentifiers=0 个，已实例化=false
+[2026/10/5 11:54:43] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 12:13:31]   呈现模式 appWithControlStrip → app sync=true
+[2026/10/5 12:13:31]   present placement=1 返回 true 模式=app
+[2026/10/5 12:13:31]   present 瞬间 itemIdentifiers=0 个
+[2026/10/5 12:13:31] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 12:13:33]   2秒后 itemIdentifiers=0 个，已实例化=false
+[2026/10/5 12:14:02] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 12:27:28]   呈现模式 app → app sync=true
+[2026/10/5 12:27:28]   present placement=1 返回 true 模式=app
+[2026/10/5 12:27:28]   present 瞬间 itemIdentifiers=0 个
+[2026/10/5 12:27:28] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 12:27:30]   2秒后 itemIdentifiers=0 个，已实例化=false
+[2026/10/5 12:29:50] === Touch Bar 微信助手启动 ===
+[2026/10/5 12:29:50] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 12:29:50] 崩溃兜底已注册（NSApplicationWillCrashNotification）
+[2026/10/5 12:29:50]   声明按钮 #0 聊天
+[2026/10/5 12:29:50]   声明按钮 #1 朋友圈
+[2026/10/5 12:29:50]   声明按钮 #2 小程序
+[2026/10/5 12:29:50]   声明按钮 #3 视频号
+[2026/10/5 12:29:50]   声明按钮 #4 搜一搜
+[2026/10/5 12:29:50]   声明按钮 #5 搜索
+[2026/10/5 12:29:50]   呈现模式 appWithControlStrip → app sync=true
+[2026/10/5 12:29:51]   present placement=1 返回 true 模式=app itemInstantiated=false
+[2026/10/5 12:29:51] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 12:29:51] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 12:29:51] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 12:31:01] === Touch Bar 微信助手启动 ===
+[2026/10/5 12:31:01] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 12:31:01] 崩溃兜底已注册（NSApplicationWillCrashNotification）
+[2026/10/5 12:31:01] 看门狗已启动 pid=69105 盯着 69103
+[2026/10/5 12:31:01]   声明按钮 #0 聊天
+[2026/10/5 12:31:01]   声明按钮 #1 朋友圈
+[2026/10/5 12:31:01]   声明按钮 #2 小程序
+[2026/10/5 12:31:01]   声明按钮 #3 视频号
+[2026/10/5 12:31:01]   声明按钮 #4 搜一搜
+[2026/10/5 12:31:01]   声明按钮 #5 搜索
+[2026/10/5 12:31:01] [watchdog] 启动，盯 pid=69103
+[2026/10/5 12:31:01]   呈现模式 appWithControlStrip → app sync=true
+[2026/10/5 12:31:01]   present placement=1 返回 true 模式=app itemInstantiated=false
+[2026/10/5 12:31:01] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 12:31:01] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 12:31:01] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 12:31:18] [watchdog] 父进程 69103 已消失，已还原全局模式 → appWithControlStrip
+[2026/10/5 12:31:32] === Touch Bar 微信助手启动 ===
+[2026/10/5 12:31:32] macOS Version 27.0.1 (Build 26A434)
+[2026/10/5 12:31:32] 崩溃兜底已注册（NSApplicationWillCrashNotification）
+[2026/10/5 12:31:32] 看门狗已启动 pid=69523 盯着 69521
+[2026/10/5 12:31:32]   声明按钮 #0 聊天
+[2026/10/5 12:31:32]   声明按钮 #1 朋友圈
+[2026/10/5 12:31:32]   声明按钮 #2 小程序
+[2026/10/5 12:31:32]   声明按钮 #3 视频号
+[2026/10/5 12:31:32]   声明按钮 #4 搜一搜
+[2026/10/5 12:31:32]   声明按钮 #5 搜索
+[2026/10/5 12:31:32]   dismiss 跳过（bar=有 isPresented=false），仍确保还原全局模式
+[2026/10/5 12:31:32] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 12:31:32] ⚠️ 辅助功能未授权，发按键/点击会失效
+[2026/10/5 12:31:32] 已弹出 AX 授权请求框，等待用户在系统设置里勾选
+[2026/10/5 12:31:32] [watchdog] 启动，盯 pid=69521
