@@ -1,0 +1,6 @@
+app	运行中 pid=24128
+ax	未授权
+menu	就绪
+private_api	可用
+scan	等待辅助功能授权
+touchbar	present=true visible=false tick=4

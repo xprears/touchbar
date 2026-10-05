@@ -1,0 +1,186 @@
+=== 微信 Accessibility 扫描 ===
+pid: 1839
+微信在前台: true
+
+AXApplication  title="微信"
+  AXWindow/AXStandardWindow  title="微信"  <子元素=3>
+    AXButton/AXCloseButton
+    AXButton/AXFullScreenButton  help="此按钮也可以执行缩放窗口的操作"
+      AXGroup
+    AXButton/AXMinimizeButton
+  AXMenuBar
+    AXMenuBarItem  title="微信"
+      AXMenu
+        AXMenuItem  title="关于微信"  ⌨=I
+        AXMenuItem
+        AXMenuItem  title="设置"  ⌨=,
+        AXMenuItem  title="锁定"  ⌨=L
+        AXMenuItem  title="版本更新"
+        AXMenuItem
+        AXMenuItem  title="服务"
+          AXMenu
+            AXMenuItem  title="Activity Monitor"
+            AXMenuItem  title="Allocations & Leaks"
+            AXMenuItem  title="File Activity"
+            AXMenuItem  title="System Trace"
+            AXMenuItem  title="服务设置…"
+        AXMenuItem
+        AXMenuItem  title="隐藏微信"  ⌨=H
+        AXMenuItem  title="隐藏其他"  ⌨=H
+        AXMenuItem  title="显示全部"
+        AXMenuItem
+        AXMenuItem  title="退出微信"  ⌨=Q
+        AXMenuItem  title="退出并保留窗口"  ⌨=Q
+    AXMenuBarItem  title="文件"
+      AXMenu
+        AXMenuItem  title="发起会话"  ⌨=N
+        AXMenuItem
+        AXMenuItem  title="写笔记"  ⌨=D
+        AXMenuItem
+        AXMenuItem  title="置顶/取消置顶"  ⌨=T
+        AXMenuItem  title="静音/取消静音"  ⌨=M
+        AXMenuItem
+        AXMenuItem  title="关闭"  ⌨=W
+        AXMenuItem  title="全选"  ⌨=A
+    AXMenuBarItem  title="编辑"
+      AXMenu
+        AXMenuItem  title="撤销"  ⌨=Z
+        AXMenuItem  title="重做"  ⌨=Z
+        AXMenuItem
+        AXMenuItem  title="剪切"  ⌨=X
+        AXMenuItem  title="拷贝"  ⌨=C
+        AXMenuItem  title="粘贴"  ⌨=V
+        AXMenuItem  title="删除"  ⌨=
+        AXMenuItem
+        AXMenuItem  title="搜索"  ⌨=F
+        AXMenuItem
+        AXMenuItem  title="自动填充"
+          AXMenu
+            AXMenuItem  title="联系人…"
+            AXMenuItem  title="密码…"
+            AXMenuItem  title="信用卡…"
+        AXMenuItem  title="开始听写…"
+        AXMenuItem  title="表情与符号"  ⌨=🌐
+    AXMenuBarItem  title="显示"
+      AXMenu
+        AXMenuItem  title="显示下一个会话"  ⌨=
+        AXMenuItem  title="显示上一个会话"  ⌨=
+        AXMenuItem  title="显示下一个未读会话"  ⌨=
+        AXMenuItem  title="放大"  ⌨=+
+        AXMenuItem  title="缩小"  ⌨=-
+        AXMenuItem  title="进入全屏幕"  ⌨=F
+    AXMenuBarItem  title="窗口"
+      AXMenu
+        AXMenuItem  title="填充"  ⌨=F
+        AXMenuItem  title="居中"  ⌨=C
+        AXMenuItem
+        AXMenuItem  title="移动与调整大小"
+          AXMenu
+            AXMenuItem  title="二等分"
+            AXMenuItem  title="左侧"
+            AXMenuItem  title="右侧"
+            AXMenuItem  title="顶部"
+            AXMenuItem  title="底部"
+            AXMenuItem
+            AXMenuItem  title="四等分"
+            AXMenuItem  title="左上"
+            AXMenuItem  title="右上"
+            AXMenuItem  title="左下"
+            AXMenuItem  title="右下"
+            AXMenuItem
+            AXMenuItem  title="排列"
+            AXMenuItem  title="左侧与右侧"
+            AXMenuItem  title="左侧与四等分"
+            AXMenuItem  title="右侧与左侧"
+            AXMenuItem  title="右侧与四等分"
+            AXMenuItem  title="顶部与底部"
+            AXMenuItem  title="顶部与四等分"
+            AXMenuItem  title="底部与顶部"
+            AXMenuItem  title="底部与四等分"
+            AXMenuItem  title="四等分"
+            AXMenuItem
+            AXMenuItem  title="恢复上一个大小"  ⌨=R
+        AXMenuItem  title="全屏幕平铺"
+          AXMenu
+            AXMenuItem  title="屏幕左侧"
+            AXMenuItem  title="屏幕右侧"
+        AXMenuItem
+        AXMenuItem  title="从组中移除窗口"
+        AXMenuItem  title="置顶"
+        AXMenuItem  title="最小化"  ⌨=M
+        AXMenuItem  title="缩放"
+        AXMenuItem
+        AXMenuItem  title="聊天"  ⌨=1
+        AXMenuItem  title="通讯录"  ⌨=2
+        AXMenuItem  title="收藏"  ⌨=3
+        AXMenuItem  title="朋友圈"  ⌨=4
+        AXMenuItem
+        AXMenuItem  title="前置全部窗口"
+        AXMenuItem
+        AXMenuItem  title="微信"
+    AXMenuBarItem  title="帮助"
+      AXMenu
+        AXMenuItem  title="问题反馈"
+  AXFunctionRowTopLevelElement
+  AXMenuBar
+
+=== 窗口清单 ===
+  title="微信" subrole=AXStandardWindow layer=-1  子元素=3
+
+=== 应用级 AX 属性 ===
+  AXChildrenInNavigationOrder = (空)
+  AXEnhancedUserInterface = (空)
+  AXExtrasMenuBar = (空)
+  AXFocusedUIElement = (空)
+  AXFocusedWindow = (空)
+  AXFrame = (空)
+  AXFrontmost = (空)
+  AXFunctionRowTopLevelElements = (空)
+  AXHidden = (空)
+  AXMainWindow = (空)
+  AXMenuBar = (空)
+  AXPosition = (空)
+  AXPreferredLanguage = zh-Hans
+  AXRole = AXApplication
+  AXRoleDescription = 应用程序
+  AXSize = (空)
+  AXTitle = 微信
+
+=== 汇总 ===
+AXPress 元素: 0
+带快捷键菜单项: 35
+  关于微信 → I
+  设置 → ,
+  锁定 → L
+  隐藏微信 → H
+  隐藏其他 → H
+  退出微信 → Q
+  退出并保留窗口 → Q
+  发起会话 → N
+  写笔记 → D
+  置顶/取消置顶 → T
+  静音/取消静音 → M
+  关闭 → W
+  全选 → A
+  撤销 → Z
+  重做 → Z
+  剪切 → X
+  拷贝 → C
+  粘贴 → V
+  删除 → 
+  搜索 → F
+  表情与符号 → 🌐
+  显示下一个会话 → 
+  显示上一个会话 → 
+  显示下一个未读会话 → 
+  放大 → +
+  缩小 → -
+  进入全屏幕 → F
+  填充 → F
+  居中 → C
+  恢复上一个大小 → R
+  最小化 → M
+  聊天 → 1
+  通讯录 → 2
+  收藏 → 3
+  朋友圈 → 4
