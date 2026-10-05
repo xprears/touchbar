@@ -97,15 +97,21 @@ func currentPresentationMode() -> String {
 
 /// 设置呈现模式。**只在模式真的变了时才重载 agent**——
 /// pkill ControlStrip 会打断 Touch Bar 的截图/渲染通道，无脑每次调用会让界面卡住不刷新。
+/// 返回值 = **是否真的改了模式**（不是「同步是否成功」）。
+/// 调用方靠它决定要不要等 agent 起来：没改模式就没 pkill 过 ControlStrip、
+/// 没碰渲染通道，那就不需要等。
+///
+/// 曾经有个 force 参数用来绕过「模式没变就不动」的保护，**已删除** ——
+/// 那个保护正是防止无脑 pkill 打断渲染通道的关键，不该留绕过的入口。
 @discardableResult
-func setPresentationMode(_ mode: String, force: Bool = false) -> Bool {
+func setPresentationMode(_ mode: String) -> Bool {
     let cur = currentPresentationMode()
-    guard force || cur != mode else { return true }
+    guard cur != mode else { return false }
     CFPreferencesSetAppValue(kPresentationModeGlobal, mode as CFString, TB_AGENT)
     let ok = CFPreferencesAppSynchronize(TB_AGENT)
     reloadTouchBarAgent()
     log("  呈现模式 \(cur) → \(mode) sync=\(ok)")
-    return ok
+    return true
 }
 
 /// pkill ControlStrip 让新模式生效
@@ -290,8 +296,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSTouc
     var authMenuItem: NSMenuItem?
     var pollTimer: Timer?
     var onlyWhenFrontmost = true
-    var keepControlStrip = false     // false = 独占整条（Pock fullWidth，实测可靠）
-                                    // true  = 与右侧控制条共享（placement 0）
+    var keepControlStrip = true      // true  = 与右侧控制条共享（placement 0），音量/亮度条保留
+                                     // false = 独占整条（placement 1），控制条被挤掉
+                                     // 实测两者都能正常显示 6 个按钮（itemIdentifiers=6 / bar.isVisible=true），
+                                     // 默认取共享，避免把音量/亮度条顶掉。
     var lastShownState = false
     var busy = false
 
@@ -313,7 +321,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSTouc
             restoreGlobalPresentationMode(reason: "启动时清理残留")
         }
 
-        installCrashGuard()
         spawnWatchdog(parentPID: getpid())
 
         bar = buildTouchBar()
@@ -340,31 +347,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSTouc
         restoreGlobalPresentationMode(reason: "正常退出")
     }
 
-    /// 兜底 #4：崩溃前还原。
-    /// 注意：`NSApplicationDelegate` 协议里**没有** applicationWillCrash 这个方法
-    /// （编译器会警告它"nearly matches applicationWillUpdate"），
-    /// 写成 delegate 方法不会被调用，崩溃兜底就成了假保险。
-    /// 真正的崩溃通知是 NSApplication.willCrashNotification，由控制条那边注册。
-    private func restoreBeforeCrash() {
-        log("⚠️ 即将崩溃：先还原全局模式")
-        dismissBar()
-        restoreGlobalPresentationMode(reason: "崩溃前")
-    }
-
-    /// 注册真正的崩溃通知（willCrashNotification），崩溃时先还原全局模式。
-    /// Swift 侧没暴露 NSApplication.willCrashNotification 这个常量，
-    /// 这里直接用通知名字符串、并用 NotificationCenter 的字符串查找，
-    /// 避免依赖 SDK 的 Swift 桥接是否暴露该常量。
-    func installCrashGuard() {
-        let name = "NSApplicationWillCrashNotification"
-        NotificationCenter.default.addObserver(
-            forName: Notification.Name(name),
-            object: nil, queue: .main
-        ) { [weak self] _ in
-            self?.restoreBeforeCrash()
-        }
-        log("崩溃兜底已注册（\(name)）")
-    }
+    // ❌ 这里原本有一个「崩溃通知兜底」：注册 "NSApplicationWillCrashNotification"，
+    //    在崩溃时先还原全局模式。**已删除，它是个假保险。**
+    //    扫过 macOS 27 的 dyld 共享缓存全部 82 个分片（6.56 GB），整个系统里
+    //    **不存在**这个名字的通知；AppKit 公开头文件 NSApplication.h 里那 20 个
+    //    NSApplication*Notification 也没有 Crash 系。
+    //    也就是说那个 observer 永远不会被触发，它唯一的实际作用是在启动日志里
+    //    打印一句「崩溃兜底已注册」，让人误以为有这层保护。
+    //
+    //    真正有效的兜底是下面三层，别动它们：
+    //      ① atexit + applicationWillTerminate（正常退出 / SIGTERM）
+    //      ② 启动时清理上次残留的呈现模式
+    //      ③ 独立看门狗进程（kill(pid,0) 探活）—— 唯一能扛 SIGKILL 的一层
 
     // MARK: 构建 Touch Bar + 呈现
     //
@@ -383,9 +377,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSTouc
     func buildTouchBar() -> NSTouchBar {
         let bar = NSTouchBar()
         bar.delegate = self
-        // ⚠️ 不要设 customizationIdentifier：设了之后 AppKit 会走「用户自定义」路径，
-        // itemIdentifiers 由 CustomizationPanel 决定，defaultItemIdentifiers 直接被忽略
-        // （实测 itemIdentifiers=[] 而 defaultItemIdentifiers 有 6 个）。
 
         for (i, item) in ITEMS.enumerated() {
             let cid = NSTouchBarItem.Identifier("com.xprears.tbwx.item\(i)")
@@ -393,7 +384,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSTouc
             buttonToOrder[cid] = (i, item)
             log("  声明按钮 #\(i) \(item.title)")
         }
+
+        // ★★ 关键一行：defaultItemIdentifiers 是 NSTouchBar 的**属性**，不是 delegate 方法。
+        //   官方头文件 NSTouchBar.h 里 NSTouchBarDelegate 只有一个可选方法
+        //   touchBar(_:makeItemForIdentifier:)。所以之前那个
+        //   「func defaultItemIdentifiers(in:)」根本不是协议方法 —— 只是个同名的普通方法，
+        //   编得过、跑得到、系统永远不会调用它。
+        //   不赋值 → bar.itemIdentifiers 解析为空 → itemForIdentifier: 从不被调用
+        //   → makeItemForIdentifier 从不被回调 → present 返回 true 但整条不显示。
+        bar.defaultItemIdentifiers = itemIDs
+
+        // 不要设 customizationIdentifier：设了 bar 才成为「可自定义」，
+        // itemIdentifiers 会改由 CustomizationPanel 决定、defaultItemIdentifiers 被忽略。
         bar.customizationAllowedItemIdentifiers = itemIDs + [.flexibleSpace]
+        log("  defaultItemIdentifiers 已设为 \(bar.defaultItemIdentifiers.count) 项")
         return bar
     }
 
@@ -403,9 +407,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSTouc
     var bar: NSTouchBar?
     var isPresented = false
 
-    func defaultItemIdentifiers(in touchBar: NSTouchBar) -> [NSTouchBarItem.Identifier] {
-        buttonToOrder.keys.sorted { $0.rawValue < $1.rawValue }
-    }
+    // ⚠️ 这里曾经写过一个 func defaultItemIdentifiers(in touchBar:)。那不是
+    //    NSTouchBarDelegate 的协议方法（协议里只有 touchBar(_:makeItemForIdentifier:)），
+    //    系统不会调用它，是整条 Touch Bar 不显示的真正原因。见 buildTouchBar()。
 
     func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
         guard let (idx, item) = buttonToOrder[identifier] else {
@@ -456,24 +460,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSTouc
         //   ② 等一下让 agent 起来
         //   ③ 再 present，delegate 才会被回调、按钮才会被实例化
         let mode = keepControlStrip ? "appWithControlStrip" : "app"
-        // ⚠️ 这里绝不能传 force: true。
-        // setPresentationMode(force:) 会绕过「模式没变就不动」的保护，无条件
-        // pkill ControlStrip；而 pkill 打断 Touch Bar 的截图/渲染通道，
-        // 反复 present 时会把渲染通道彻底打废——表现是 present 返回 true 但
-        // bar.itemIdentifiers 恒为空、Touch Bar 什么都不显示（present=true visible=false）。
-        // 模式本来就对时直接跳过，让渲染通道有机会自己恢复。
-        setPresentationMode(mode)
-        usleep(400000)
+        // 只在模式真的变了（= 真的 pkill 过 ControlStrip）时才等 agent 起来重建渲染通道。
+        // 没改模式就别白等这 400ms —— 那是主线程阻塞，只会让菜单栏发顿。
+        if setPresentationMode(mode) { usleep(400000) }
 
         let placement = keepControlStrip ? 0 : 1
         let ret = TBPrivate.present(b, placement: Int32(placement))
         log("  present placement=\(placement) 返回 \(ret) 模式=\(mode) itemInstantiated=\(itemWasInstantiated)")
         isPresented = ret
 
+        // 诊断：1.5s 后回读解析结果。itemIdentifiers 的个数才是「到底有几个按钮」的硬指标；
+        // bar.isVisible 是官方文档定义的「已附着到 NSTouchBar provider、可显示」，
+        // 比之前那个根本不存在的私有方法 isTouchBarVisible 靠谱。
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+            guard let self = self, let bar = self.bar else { return }
+            log("  ⏱ 1.5s 后 itemIdentifiers=\(bar.itemIdentifiers.count) 个，已实例化=\(self.itemWasInstantiated)，bar.isVisible=\(bar.isVisible)")
+        }
+
         // agent 重载有延迟，若delegate 还没被回调，补一次 present
         if !itemWasInstantiated {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
-                guard let self = self, self.isPresented, !self.itemWasInstantiated else { return }
+                guard let self = self else { log("  [补present] self 已释放，放弃"); return }
+                log("  [补present] 到期：isPresented=\(self.isPresented) itemWasInstantiated=\(self.itemWasInstantiated)")
+                guard self.isPresented, !self.itemWasInstantiated else { return }
                 log("  ⟳ 补一次 present（首次没被回调）")
                 TBPrivate.dismiss(self.bar!)
                 usleep(120000)
@@ -484,20 +493,33 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSTouc
 
     var itemWasInstantiated = false
 
+    /// 撤下模态 Touch Bar，并把全局呈现模式交还系统默认。
+    ///
+    /// ⚠️ **绝不要用 isPresented 来决定要不要 dismiss。**
+    /// 原实现写成 `if let b = bar, isPresented { dismiss } else { 只还原模式 }`，
+    /// 实测出现过「走了 else 分支、却在同一行里打印出 isPresented=true」的情况 ——
+    /// 于是 `dismissSystemModalTouchBar:` 从未被调用，模态 bar 一直挂在系统上：
+    /// 切到别的 App 也不消失、右侧控制条也回不来（就是「面板恒久显示」那个 bug）。
+    /// dismiss 本身是幂等的（没 present 时返回 NO），无条件调用即可。
     func dismissBar() {
-        // ⚠️ 还原全局模式必须放在 guard 之外。
-        // 原先这里直接 return，崩溃路径下 isPresented 往往已经是 false，
-        // 于是「交还系统默认」这步被跳过，全局偏好永久停在app 模式。
-        if let b = bar, isPresented {
+        if let b = bar {
             let r = TBPrivate.dismiss(b)
-            log("  dismiss 返回 \(r)")
-            // 交还系统默认，别把用户的偏好改了不还
-            setPresentationMode("appWithControlStrip")
-            log("  dismissSystemModalTouchBar 已调用")
+            log("  dismiss 调用：wasPresented=\(isPresented) 返回=\(r)")
+            // 返回值不可信：如果 dismissSystemModalTouchBar: 实际声明为 void，
+            // 我们按 BOOL 读寄存器就会读到垃圾值。真正的判据是 bar.isVisible ——
+            // 它是官方 property，含义是「已附着到 NSTouchBar provider、可显示」，
+            // 撤下成功后应变回 false。
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
+                guard let self = self, let bar = self.bar else { return }
+                log("  ⏱ dismiss 后 0.8s：bar.isVisible=\(bar.isVisible)（false = 模态 bar 真撤下来了）")
+            }
         } else {
-            log("  dismiss 跳过（bar=\(bar != nil ? "有" : "nil") isPresented=\(isPresented)），仍确保还原全局模式")
-            restoreGlobalPresentationMode(reason: "dismissBar 兜底")
+            log("  dismiss 跳过：bar=nil")
         }
+        // 交还系统默认。这里用 setPresentationMode 而不是 restoreGlobalPresentationMode：
+        // 独占模式下模式确实变了，**必须伴随一次 ControlStrip 重载**，音量/亮度条才会回来；
+        // 共享模式下模式本来就是 appWithControlStrip，内部会直接跳过、不会 pkill。
+        setPresentationMode("appWithControlStrip")
         isPresented = false
     }
 
