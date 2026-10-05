@@ -528,3 +528,57 @@
 [2026/10/5 13:44:51]   present placement=0 返回 true 模式=appWithControlStrip itemInstantiated=true
 [2026/10/5 13:44:51] Touch Bar → 显示（前台=com.tencent.xinWeChat）
 [2026/10/5 13:44:52]   ⏱ 1.5s 后 itemIdentifiers=6 个，已实例化=true，bar.isVisible=true
+[2026/10/5 13:45:02]   dismiss 调用：wasPresented=true 返回=true
+[2026/10/5 13:45:02] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 13:45:02]   ⏱ dismiss 后 0.8s：bar.isVisible=false（false = 模态 bar 真撤下来了）
+[2026/10/5 13:45:09]   present placement=0 返回 true 模式=appWithControlStrip itemInstantiated=true
+[2026/10/5 13:45:09] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 13:45:10]   ⏱ 1.5s 后 itemIdentifiers=6 个，已实例化=true，bar.isVisible=true
+[2026/10/5 13:46:10]   dismiss 调用：wasPresented=true 返回=true
+[2026/10/5 13:46:10] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 13:46:10]   ⏱ dismiss 后 0.8s：bar.isVisible=false（false = 模态 bar 真撤下来了）
+[2026/10/5 13:47:09]   present placement=0 返回 true 模式=appWithControlStrip itemInstantiated=true
+[2026/10/5 13:47:09] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 13:47:10]   ⏱ 1.5s 后 itemIdentifiers=6 个，已实例化=true，bar.isVisible=true
+[2026/10/5 13:47:17] 👆 Touch Bar 按钮被点击：#0 「聊天」
+[2026/10/5 13:47:17] ▶ 执行「聊天」
+[2026/10/5 13:47:17] 👆 Touch Bar 按钮被点击：#0 「聊天」
+[2026/10/5 13:47:17] 忙，忽略 聊天
+[2026/10/5 13:47:18] 👆 Touch Bar 按钮被点击：#0 「聊天」
+[2026/10/5 13:47:18] 忙，忽略 聊天
+[2026/10/5 13:47:18]   已发送 ⌘1 聊天
+[2026/10/5 13:47:18] ✔「聊天」完成，用时 924ms
+[2026/10/5 13:47:18] 👆 Touch Bar 按钮被点击：#0 「聊天」
+[2026/10/5 13:47:18] 忙，忽略 聊天
+[2026/10/5 13:47:18] 👆 Touch Bar 按钮被点击：#1 「朋友圈」
+[2026/10/5 13:47:18] ▶ 执行「朋友圈」
+[2026/10/5 13:47:19]   已发送 ⌘4 发现，等待页面切换…
+[2026/10/5 13:47:21]   点击发现页 (423, 672)  窗口=(302,30,916x717)
+[2026/10/5 13:47:21] ✔「朋友圈」完成，用时 2797ms
+[2026/10/5 13:47:25]   dismiss 调用：wasPresented=true 返回=true
+[2026/10/5 13:47:25] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 13:47:25]   ⏱ dismiss 后 0.8s：bar.isVisible=false（false = 模态 bar 真撤下来了）
+[2026/10/5 13:47:45]   present placement=0 返回 true 模式=appWithControlStrip itemInstantiated=true
+[2026/10/5 13:47:45] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 13:47:46]   ⏱ 1.5s 后 itemIdentifiers=6 个，已实例化=true，bar.isVisible=true
+[2026/10/5 13:47:54]   dismiss 调用：wasPresented=true 返回=true
+[2026/10/5 13:47:54] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 13:47:54]   ⏱ dismiss 后 0.8s：bar.isVisible=false（false = 模态 bar 真撤下来了）
+[2026/10/5 13:48:36]   present placement=0 返回 true 模式=appWithControlStrip itemInstantiated=true
+[2026/10/5 13:48:36] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 13:48:37]   ⏱ 1.5s 后 itemIdentifiers=6 个，已实例化=true，bar.isVisible=true
+[2026/10/5 13:48:40]   dismiss 调用：wasPresented=true 返回=true
+[2026/10/5 13:48:40] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 13:48:40]   ⏱ dismiss 后 0.8s：bar.isVisible=false（false = 模态 bar 真撤下来了）
+[2026/10/5 13:48:57]   present placement=0 返回 true 模式=appWithControlStrip itemInstantiated=true
+[2026/10/5 13:48:57] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 13:48:58]   dismiss 调用：wasPresented=true 返回=true
+[2026/10/5 13:48:58] Touch Bar → 隐藏（前台=com.google.Chrome）
+[2026/10/5 13:48:58]   ⏱ 1.5s 后 itemIdentifiers=6 个，已实例化=true，bar.isVisible=false
+[2026/10/5 13:48:58]   ⏱ dismiss 后 0.8s：bar.isVisible=false（false = 模态 bar 真撤下来了）
+[2026/10/5 13:49:54]   present placement=0 返回 true 模式=appWithControlStrip itemInstantiated=true
+[2026/10/5 13:49:54] Touch Bar → 显示（前台=com.tencent.xinWeChat）
+[2026/10/5 13:49:55]   ⏱ 1.5s 后 itemIdentifiers=6 个，已实例化=true，bar.isVisible=true
+[2026/10/5 13:50:26]   dismiss 调用：wasPresented=true 返回=true
+[2026/10/5 13:50:26] Touch Bar → 隐藏（前台=com.tencent.workbuddy.mac）
+[2026/10/5 13:50:26]   ⏱ dismiss 后 0.8s：bar.isVisible=false（false = 模态 bar 真撤下来了）

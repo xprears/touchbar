@@ -10,6 +10,9 @@ import CoreGraphics
 //   wxctl shot           只截当前状态
 //   wxctl bounds         只打印窗口坐标
 //
+// 修饰键在按键名之后追加，顺序随意、可叠加：`wxctl key 4 cmd`、`wxctl key f shift`、
+// `wxctl key 4 cmd shift`。**不带 cmd 就是裸按键**，要发 ⌘X 必须显式写 cmd。
+//
 // 截图默认存 out/wx_full.png（整窗，因为发现页没有聊天内容）
 
 let OUT = WX.proj + "/out"
@@ -58,9 +61,15 @@ func shoot(_ path: String, _ rect: CGRect) -> Bool {
     catch { return false }
 }
 
-// 键码表
+// 键码表（HID 虚拟键码，即 Carbon 的 kVK_* 那一套）
+//
+// ⚠️ 别写成字符的 ASCII 码！这是踩过的坑：
+//    字符 '1' 的 ASCII 是 0x31，但**键码** 0x31 是空格、0x12 才是数字 1。
+//    曾经把 0..9 全写成 ASCII（0x30–0x39），结果 2/3/4/6/7/8/9 → 未定义键码、
+//    0 → Tab、1 → 空格、5 → Esc。于是 `wxctl key 4 cmd`（发现页的默认用法）
+//    实际什么都没发出去，早期用它做的探测结论全部不可信。
 let KEYMAP: [String: CGKeyCode] = [
-    "0":0x30,"1":0x31,"2":0x32,"3":0x33,"4":0x34,"5":0x35,"6":0x36,"7":0x37,"8":0x38,"9":0x39,
+    "0":0x1D,"1":0x12,"2":0x13,"3":0x14,"4":0x15,"5":0x17,"6":0x16,"7":0x1A,"8":0x1C,"9":0x19,
     "f":0x03,"a":0x00,"c":0x08,"d":0x02,"e":0x0E,"m":0x2E,"n":0x2D,"q":0x0C,"t":0x11,"v":0x09,
     "escape":0x35,"enter":0x24,"tab":0x30,"space":0x31,"left":0x7B,"right":0x7C,"down":0x7D,"up":0x7E
 ]
@@ -111,8 +120,13 @@ switch cmd {
 
 case "key":
     let name = (args.count > 1 ? args[1] : "4").lowercased()
-    let useCmd = args.count > 2 ? args[2].lowercased().hasPrefix("cmd") : true
-    let useShift = args.count > 3 ? args[2].lowercased().contains("shift") || args[3].lowercased().contains("shift") : false
+    // 修饰键从 args[2...] 里扫，顺序随意：`wxctl key 4 cmd` / `wxctl key 4 cmd shift`
+    // ⚠️ 默认**不**按 Command —— `wxctl key 1` 就是发 1，要 ⌘1 必须显式写 cmd。
+    //    （旧实现默认 useCmd=true，和上面用法说明正好相反；且 shift 只在
+    //     args.count>3 时才解析，导致 `wxctl key 1 shift` 被静默忽略。）
+    let modTokens = args.dropFirst(2).map { $0.lowercased() }
+    let useCmd = modTokens.contains { $0.hasPrefix("cmd") }
+    let useShift = modTokens.contains { $0.hasPrefix("shift") }
     guard let kc = KEYMAP[name] else { die("❌ 未知按键 \(name)\n"); exit(5) }
     activate()
     print("发送 \(useCmd ? "⌘" : "")\(useShift ? "⇧" : "")\(name.uppercased())  发送前前台=\(frontmost())")

@@ -1,12 +1,16 @@
 import Cocoa
 import Darwin
 
-// 微信 Accessibility 扫描核心（无 UI，供 CLI 与 App 共用）
+// 微信 Accessibility 扫描核心（无 UI）
+//
+// 用途：**只被命令行工具 wxscan 使用**（tools/build_scan.sh 把它和 tools/cli/main.swift
+// 一起编译）。正式 App app/main.swift 不引用这里任何东西 —— 它走的是
+// CGWindowList + 合成事件那条路，不依赖 AX 读微信界面。
+// 曾经这里写着「供 CLI 与 App 共用」，是错的，别照那个理解去改。
 
 public enum WX {
     public static let bundleID = "com.tencent.xinWeChat"
     public static let proj = "/Users/Xprears/WorkBuddy/Touch Bar项目"
-    public static var lastWindowBounds: CGRect? = nil
 
     public static func log(_ s: String) {
         let line = "[wxscan] " + s + "\n"
@@ -190,7 +194,9 @@ public enum WX {
             out += "  title=\"\(t)\" subrole=\(sub) layer=\(layer ?? -1)"
             out += b.isEmpty ? " \(g)" : " AXBounds[\(b)]"
             out += " 子元素=\(kids(w).count)\n"
-            if lastWindowBounds == nil, let r = rect(w) { lastWindowBounds = r }
+            // 这里曾经顺手把首个窗口坐标存进一个 static var lastWindowBounds，
+            // 但全项目没有任何地方读它 —— 纯死状态，已删。
+            // （要取窗口坐标用下面的 rect()，或 App 侧的 CGWindowList 那条路。）
         }
 
         // 应用级属性全量转储：自绘界面有时把入口藏在非标准属性里

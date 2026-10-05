@@ -1,2 +1,13 @@
 .DS_Store
 .workbuddy/
+
+# 探针阶段留下的证据截图（7MB），README 不引用；需要时可用 tools/find_items.py 重新生成
+out/*.png
+
+# 已废弃探针的编译产物，可用 probe/build.sh 重建
+probe/build/
+
+# ⚠️ 下面这些产物是**有意提交**的，别加进来（曾经有人想当然地把 build/ 全忽略了）：
+#   app/build/TouchBarWX.app   README 的「安装 / 运行」直接指向它，是用户实际运行的那份
+#   out/app.log                README 指向它；App 在跑时会持续变脏，属正常现象
+#   tools/wxctl  tools/wxscan  日常要用的命令行工具，与源码一起提交，避免二进制/源码漂移
