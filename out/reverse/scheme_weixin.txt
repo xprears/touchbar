@@ -1,0 +1,10 @@
+weixin://forwardProcessWxWorkLanlaunch_service.cProcessXWebSchemserver
+weixin://jump/mainframe/
+weixin://kefumenkefumenucontent
+weixin://private/client_command/
+weixin://private/setresult/
+weixin://resourceid/AppletDiscover/app.html
+weixin://resourceid/Search/app.html
+weixin://resourceid/SearchEmotion/app.html
+weixin://resourcurl
+weixin:/is_for_embeddingnative_element_i_0335404f

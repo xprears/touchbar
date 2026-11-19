@@ -1,0 +1,20 @@
+# 严格版实测清单（全程走 probe_strict.py，内部用 open -b 强制投给微信）
+# --- weixin:// 真实字面量 ---
+weixin://jump/mainframe/
+weixin://jump/mainframe/chat
+weixin://jump/mainframe/discover
+weixin://jump/mainframe/miniprogram
+weixin://resourceid/Search/app.html
+weixin://resourceid/AppletDiscover/app.html
+weixin://resourceid/SearchEmotion/app.html
+weixin://dl/openinvalid
+weixin://dl/jumpredirect_url:https://mp.weixin.qq.com/
+weixin://private/client_command/
+weixin://
+# --- xweixin:// ---
+xweixin://
+xweixin://jump/mainframe/chat
+xweixin://resourceid/AppletDiscover/app.html
+# --- wechat:// ---
+wechat://
+wechat://jump/mainframe/chat

@@ -1,0 +1,6 @@
+search://page/fi
+search://page/miniprogram
+search://page/officialaccount
+search://page/servicenotification
+search://page/welehelper
+search://page/wxpay

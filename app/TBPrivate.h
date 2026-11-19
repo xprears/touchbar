@@ -9,6 +9,11 @@
 @interface TBPrivate : NSObject
 + (BOOL)present:(NSTouchBar *)bar placement:(int)placement;
 + (BOOL)dismiss:(NSTouchBar *)bar;
-+ (BOOL)minimize:(NSTouchBar *)bar;
-+ (BOOL)respondsToPresent;
 @end
+// 注：曾经想用 addSystemTrayItem: / removeSystemTrayItem: 把按钮塞进右侧控制条
+// （那是唯一能与输入法候选条天然并存的位置）。**已证伪**：这两个选择子在
+// NSTouchBar 上不存在 —— 类和实例的 respondsToSelector 都是 false，
+// 运行时枚举 NSTouchBar 元类只剩下 dismissSystemModalTouchBar: /
+// minimizeSystemModalTouchBar: / presentSystemModalTouchBar:systemTrayItemIdentifier: /
+// presentSystemModalTouchBar:placement:systemTrayItemIdentifier: 这 4 个相关方法，
+// 且**全部是 v（void）返回**。别再往这条路上试。

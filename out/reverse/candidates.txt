@@ -1,0 +1,34 @@
+# 微信深链候选 —— 来自 wechat.dylib 静态提取 + 通用猜测
+#
+# ⚠️ 只能配 tools/probe.py 跑（内部用 `open -b com.tencent.xinWeChat "<url>"` 强制投递给微信）。
+#    绝不手动裸跑 `open "<url>"`：LaunchServices 会按 scheme 抢注路由，本机
+#    `search://` 的 Default handler 是 Parallels 的「文件资源管理器.app」，
+#    一发就会启动/恢复用户的 Windows 11 虚拟机（2026-10-09 实际踩过）。
+
+# --- A. 静态提取到的真实字面量（weixin:// 系，投给微信安全）---
+weixin://resourceid/Search/app.html
+weixin://resourceid/Search/app.html?query=test
+weixin://resourceid/AppletDiscover/app.html
+weixin://resourceid/SearchEmotion/app.html
+weixin://dl/jumpredirect_url:https://mp.weixin.qq.com/
+weixin://dl/jumpredirect_url:search://page/miniprogram
+weixin://dl/jumpredirect_url:search://page/officialaccount
+weixin://jump/mainframe/
+weixin://dl/openinvalid
+weixin://bizmsgmenu?msgmenucontent=test&msgmenuid=0
+weixin://kefumenu?kefumenucontent=test
+weixin://private/client_command/
+
+# --- B. 危险项：无 App 注册（保留在此仅作文档，别取消注释）---
+# search://page/miniprogram      ← ★ 就是这条拉起了 Parallels 虚拟机
+# xweb://star-page               ← 实测 0 个注册者
+
+# --- C. 猜测项（未在二进制中出现，纯试探）---
+weixin://
+weixin://dl/scan
+weixin://dl/moments
+weixin://dl/settings
+weixin://dl/officialaccounts
+weixin://dl/business/?t=test
+weixin://dl/appbrand
+weixin://dl/channels

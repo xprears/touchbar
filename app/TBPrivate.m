@@ -25,12 +25,4 @@
     return r;
 }
 
-+ (BOOL)minimize:(NSTouchBar *)bar {
-    SEL sel = @selector(minimizeSystemModalTouchBar:);
-    if (![NSTouchBar respondsToSelector:sel]) return NO;
-    BOOL r = ((BOOL (*)(id, SEL, id))objc_msgSend)([NSTouchBar class], sel, bar);
-    NSLog(@"[TBPrivate] dismiss ret=%d", r);
-    return r;
-}
-
 @end

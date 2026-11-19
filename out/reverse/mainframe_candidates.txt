@@ -1,0 +1,23 @@
+# mainframe 子路径猜测 + 已知 weixin:// 深链
+# 全程走 tools/probe_pages.py（内部用 `open -b com.tencent.xinWeChat`），不要手动裸 open
+weixin://jump/mainframe/chat
+weixin://jump/mainframe/contacts
+weixin://jump/mainframe/contact
+weixin://jump/mainframe/discover
+weixin://jump/mainframe/favorites
+weixin://jump/mainframe/favorite
+weixin://jump/mainframe/sns
+weixin://jump/mainframe/finder
+weixin://jump/mainframe/channels
+weixin://jump/mainframe/miniprogram
+weixin://jump/mainframe/appbrand
+weixin://jump/mainframe/settings
+weixin://jump/mainframe/search
+weixin://jump/mainframe/games
+weixin://jump/mainframe/files
+weixin://jump/mainframe/0
+weixin://jump/mainframe/1
+weixin://resourceid/AppletDiscover/app.html
+weixin://resourceid/Search/app.html
+weixin://resourceid/SearchEmotion/app.html
+weixin://dl/jumpredirect_url:https://mp.weixin.qq.com/

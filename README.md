@@ -4,20 +4,44 @@
 
 ## 效果
 
-微信处于前台时，Touch Bar 主区域出现 6 个按钮；切走微信自动隐藏并交还系统。
+微信处于前台时，Touch Bar 主区域出现 3 个按钮；切走微信自动隐藏并交还系统。
 
 与右侧控制条**共享**（音量 / 亮度条保留）—— 见「显示层」里的 `placement 0`。
+
+### 与输入法候选条：打字时让位
+
+Touch Bar 的 App 区域**只有一个格子**，系统模态 bar 与输入法候选条抢的就是同一格。
+实测：我方占着时**打字不出候选框**，必须先点 Touch Bar 上那个 × 把它关掉，候选框才出来。
+
+现在的默认行为是**让位**：
+
+| 你在干什么 | Touch Bar 上是什么 |
+|---|---|
+| 微信前台、没在打字 | 三个按钮 |
+| 开始敲键盘（2 秒内有按键） | 按钮撤下，**输入法候选框让出来** |
+| 停手超过 2 秒 | 三个按钮自动回来 |
+
+判据是 `CGEventSource.secondsSinceLastEventType(.combinedSessionState, eventType: .keyDown)`
+—— **公开 API，不需要任何额外权限**（不要 Input Monitoring，也不要屏幕录制）。
+
+菜单里可以切成「一直占着 App 区域」回到老行为（会挡住输入法候选框）。
+**切换不需要重编译。**
 
 | 图标 | 跳转目标 | 实现方式 |
 |---|---|---|
 | 💬 气泡 | 聊天 | 发 `⌘1` |
-| ◉ 六边形 | 朋友圈 | `⌘4` 进「发现」→ 点击 |
-| ⊞ 四方格 | 小程序 | `⌘4` 进「发现」→ 点击 |
-| ▶ 播放框 | 视频号 | `⌘4` 进「发现」→ 点击 |
-| ✦ 放大镜 | 搜一搜 | `⌘4` 进「发现」→ 点击 |
+| ◉ 六边形 | 朋友圈 | 发 `⌘4` |
 | 🔍 放大镜 | 搜索 | 发 `⌘F` |
 
-> 通讯录 `⌘2` / 收藏 `⌘3` 微信自带快捷键，一个组合键就到，不占 Touch Bar 位置。
+> `⌘4` 进「发现」后微信默认停在第一项「朋友圈」，所以朋友圈**不需要点击**，`⌘4` 就是它。
+> 通讯录 `⌘2` / 收藏 `⌘3` 微信自带快捷键，一个组合键就到，也不占 Touch Bar 位置。
+
+### 为什么砍掉了 小程序 / 视频号 / 搜一搜
+
+这三个微信**没有独立快捷键**，只能 `⌘4` 进「发现」→ 按**窗口相对坐标**点击列表项。
+坐标点击依赖窗口钉在固定位置，用户一挪微信窗口就点不准（发现页条目命中区间本来就很窄），
+实用性不达标，先移除。等 `weixin://` 之类的深链方案跑通再补 ——
+**在那之前不要复活坐标点击**。（历史偏移量留档见下面「控制层」。）
 
 ## 安装 / 运行
 
@@ -51,7 +75,7 @@ open "/Users/Xprears/WorkBuddy/Touch Bar项目/app/build/TouchBarWX.app"
 - 看辅助功能授权状态（每次弹出菜单都重算，去系统设置授权完回来就变）
 - 申请辅助功能权限（直接弹系统框）
 - 切换「仅微信在前台时显示」
-- 切换「保留右侧控制条（音量/亮度）」= `placement 0` ↔ `1`
+- 切换**显示方式**：`打字时让位` ↔ `一直占着 App 区域`（写入偏好域，重启后保持）
 - 自检（发一次 `⌘1`）
 - 打开日志
 - 退出
@@ -86,8 +110,15 @@ NSTouchBar.dismissSystemModalTouchBar(bar)
   自取 IMP** —— 签名对不上会直接崩，这条路已经验证过了。
 
 > **两条走不通的老路，别改回去**
-> - `NSTouchBarItem.addSystemTrayItem:` + `DFRElementSetControlStripPresenceForIdentifier`
->   往右侧控制条塞按钮：控制条那块地方只留得住 1 个，6 个按钮塞不下。
+> - **把按钮塞进右侧控制条**（那本来才是唯一能与输入法候选条天然并存的位置）。
+>   `addSystemTrayItem:` / `removeSystemTrayItem:` 在 `NSTouchBar` 上**根本不存在** ——
+>   类与实例的 `respondsToSelector` 都是 `false`。dyld 里确实能搜到 `addSystemTrayItem:`
+>   这个字符串，但那是**别的类**的；运行时枚举 `NSTouchBar` 元类，相关方法只剩 4 个：
+>   `dismissSystemModalTouchBar:` / `minimizeSystemModalTouchBar:` /
+>   `presentSystemModalTouchBar:systemTrayItemIdentifier:` /
+>   `presentSystemModalTouchBar:placement:systemTrayItemIdentifier:`。
+>   `DFRElementSetControlStripPresenceForIdentifier` 倒是真的存在（dlsym 取得到、调用不崩），
+>   但没有配套的「加 item」API，单独调它没有意义。
 > - `presentSystemModalTouchBar(bar, systemTrayItemIdentifier:)` 两参数旧版：
 >   返回成功但完全不显示。
 
@@ -153,9 +184,20 @@ if let b = bar, isPresented { TBPrivate.dismiss(b) } else { restorePresentationM
 不需要条件保护。
 
 **另外，`dismissSystemModalTouchBar:` 的返回值不可信**：同一个 build 连续两次调用
-会一次返回 `true`、一次返回 `false`，而 `bar.isVisible` 两次都正确变成 `false`
-（怀疑该方法实际声明为 `void`，按 `BOOL` 读寄存器只能读到垃圾）。
-**判据一律用 `bar.isVisible`，别用私有方法的返回值。**
+会一次返回 `true`、一次返回 `false`，而 `bar.isVisible` 两次都正确变成 `false`。
+**`presentSystemModalTouchBar:...` 同理。** 现在有确证了 —— 运行时读类型编码，
+这四个私有方法**全部是 `v`（void）返回**：
+
+```
+v24@0:8@16       dismissSystemModalTouchBar:
+v24@0:8@16       minimizeSystemModalTouchBar:
+v32@0:8@16@24    presentSystemModalTouchBar:systemTrayItemIdentifier:
+v40@0:8@16q24@32 presentSystemModalTouchBar:placement:systemTrayItemIdentifier:
+```
+
+按 `BOOL` 读寄存器读到的只能是垃圾 —— 这也正好解释了日志里那些
+「`present` 刚返回 `true`，几秒后 `dismiss` 却打印 `wasPresented=false`」的怪现象。
+**判据一律用 `bar.isVisible`，私有方法的返回值一个都别信。**
 
 ### 呈现模式：一个全局持久化的雷
 
@@ -188,13 +230,13 @@ pkill ControlStrip
 `AXMainWindow` / `AXFocusedWindow` 全部为空，窗口内容完全不可见。
 唯一能读到的是菜单栏（菜单项 + 快捷键）。
 
-所以控制层分两类：
+所以控制层只保留一类：
 
-- **发按键**（稳）：`⌘1` 聊天、`⌘2` 通讯录、`⌘3` 收藏、`⌘4` 发现、`⌘F` 搜索
-- **坐标点击**（脆）：`⌘4` 进「发现」后点列表项。窗口坐标运行时用
-  `CGWindowListCopyWindowInfo` 取（AX 拿不到），点击位置是相对窗口顶部的固定偏移
+- **发按键**（稳）：`⌘1` 聊天、`⌘2` 通讯录、`⌘3` 收藏、`⌘4` 发现（默认朋友圈）、`⌘F` 搜索
 
-「发现」页实测偏移（距窗口顶部）：
+**已移除的坐标点击**（历史留档，别再复活）：`⌘4` 进「发现」后用
+`CGWindowListCopyWindowInfo` 取窗口框，再点「相对窗口顶部」的固定偏移。这条路对窗口位置敏感，
+挪一下就不准，已删除。历史偏移（距窗口顶部）：
 
 | 条目 | 偏移 |
 |---|---|
@@ -204,7 +246,7 @@ pkill ControlStrip
 | 游戏 | 219px（量过，没做按钮） |
 | 小程序 | 267px |
 
-点击 x = 窗口左边 + 121px。
+点击 x = 窗口左边 + 121px（实测有效区间约 60…283）。要复现量法用 `tools/find_items.py`。
 
 ### 必须记住的坑
 
@@ -236,6 +278,39 @@ python3 ~/.workbuddy/skills/macos-touchbar-app-debug/scripts/dyld_symbol_probe.p
 （`presentSystemModalTouchBar:placement:systemTrayItemIdentifier:` /
 `dismissSystemModalTouchBar:` / `minimizeSystemModalTouchBar:` /
 私有类 `NSSystemModalTouchBarOverlay` …），比逐个猜名字高效。
+
+#### 但「字符串存在」≠「挂在你要的那个类上」
+
+想让「某个选择子到底能不能用」有个**结论**，最硬的证据是**运行时枚举** ——
+比扫 dyld 更快，而且直接给出类型编码：
+
+```swift
+var n: UInt32 = 0
+// 元类 = 类方法；换成 NSTouchBar.self 就是实例方法
+let head = class_copyMethodList(object_getClass(NSTouchBar.self)!, &n)!
+for i in 0..<Int(n) {
+    let s = NSSelectorFromString(NSStringFromSelector(method_getName(head[i])))
+    let enc = String(cString: method_getTypeEncoding(head[i])!)   // 例如 v40@0:8@16q24@32
+    let name = NSStringFromSelector(method_getName(head[i]))
+    if name.contains("Tray") || name.contains("Modal") { print(enc, name) }
+}
+```
+
+就这样一次性否掉了整条「把按钮塞进控制条」的方案：`addSystemTrayItem:` /
+`removeSystemTrayItem:` 在 `NSTouchBar` 的**类与实例上都不存在**，而
+`present/dismissSystemModalTouchBar:` 的类型编码全是 `v`（void 返回）。
+
+编译这种小工具直接用 CLT 的 `swiftc`（必须带 `-sdk` 与 `-resource-dir`）：
+
+```sh
+/Library/Developer/CommandLineTools/usr/bin/swiftc \
+  -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk \
+  -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift \
+  -target arm64-apple-macos13.0 /tmp/probe.swift -o /tmp/probe
+```
+
+它**不碰 App 的签名**，所以可以放心拿来试错 —— 别拿 App 本体去试，
+改一次 `app/` 就要重新授权一次。
 
 ## 目录结构
 
@@ -276,9 +351,8 @@ tools/wxscan                   # 扫描微信 AX 树 + 菜单快捷键，落盘 
 
 - 依赖私有 API，macOS 大版本升级后可能失效（`presentSystemModalFunctionBar:`
   就已经被移除了）。
-- **微信在前台时整条 Touch Bar 被这条 bar 占用**，即使选 `placement 0`，
-  6 个按钮也把主区域铺满 —— 想同时保住控制条和按钮，这条路做不到，
-  只能往控制条里塞 1 个按钮（见上面「走不通的老路」）。
-- 坐标点击依赖微信「发现」页布局，微信改版可能失效。届时用
-  `tools/find_items.py` 重新量一遍偏移，改 `ITEMS` 里的数字即可。
+- **App 区域与输入法候选条互斥**（只有一个格子）。默认靠「打字时让位」绕开；
+  让位判据是**键盘活动** —— 纯用鼠标选字（不敲键盘）时不会让位。
+- 往右侧控制条塞按钮这条路**已证伪**（见上面「走不通的老路」），别再试。
+- 小程序 / 视频号 / 搜一搜暂未提供：无独立快捷键，坐标点击又不稳（见上面「为什么砍掉了」）。
 - 只对微信有效。要扩展到别的 App，需要重新做一次 AX 探测 + 快捷键确认。
